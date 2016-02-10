@@ -9,25 +9,25 @@ import static spark.Spark.*;
 
 public class RockPaper {
   public static void main(String[] args) {
-    // String layout = "templates/layout.vtl";
-    //
-    // get("/", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   model.put("template", "templates/main.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/detector", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   model.put("template", "templates/detector.vtl");
-    //   String userStringNumber = request.queryParams("number");
-    //   Integer userNumber = Integer.parseInt(userStringNumber);
-    //   ArrayList<Object> results = new ArrayList<Object>();
-    //   results = PingPong.isPingPong(userNumber);
-    //
-    //   model.put("results", results);
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    String layout = "templates/layout.vtl";
+
+    get("/", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/main.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/detector", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/detector.vtl");
+      String userInput = request.queryParams("userInput");
+      //Integer userNumber = Integer.parseInt(userStringNumber);
+      //ArrayList<Object> results = new ArrayList<Object>();
+      String results = RockPaper.checkWinner(userInput);
+
+      model.put("results", results);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
   public static String randomComputer() {
     Random rand = new Random();
